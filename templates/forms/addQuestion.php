@@ -1,5 +1,5 @@
 <br>
-<h2>Add Question</h2>
+<h2><?php echo $pageTitle; ?></h2>
 <form id="q-form" method="POST" action="includes/addquestions.inc.php" enctype="multipart/form-data">
   <div class="row">
     <div class="col">
