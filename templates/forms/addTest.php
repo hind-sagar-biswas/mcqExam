@@ -1,5 +1,5 @@
 <br>
-<h2>Create Test</h2>
+<h2><?php echo $pageTitle; ?></h2>
 <form id="q-form" method="POST" action="includes/add.inc.php" enctype="multipart/form-data">
   <div>
     <label class="form-label" for="title">Title <span class="text-danger">*</span> </label>
