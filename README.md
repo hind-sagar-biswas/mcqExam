@@ -1,2 +1,2 @@
-# php-oop-temp
-Template for a PHP OOP Project
+# mcqExam
+MCQ Exam management system using PHP OOP.
