@@ -78,20 +78,20 @@ ORDER BY q_id DESC;";
       }
 
       echo '<tr>';
-      echo "<td>".$id."</td>
-            <td>".$this->questions['class']."</td>
-            <td>".$this->questions['subject']."</td>
-            <td>".$this->questions['chapter']."</td>
-            <td>".$this->questions['topic']."</td>
-            <td>".$sub."</td>
-            <td align='center' class='".$a."' width='200px'>".$this->questions['a']."</td>
-            <td align='center' class='".$b."' width='200px'>".$this->questions['b']."</td>
-            <td align='center' class='".$c."' width='200px'>".$this->questions['c']."</td>
-            <td align='center' class='".$d."' width='200px'>".$this->questions['d']."</td>
-            <td align='center' class='".$ns."'>".$this->questions['ns']."</td>
-            <td>".$this->questions['ref']."</td>
-            <td> <a href='".$this->questions['ref_link']."' target='_blank'>".$this->questions['ref_link']."</a></td>
-            <!--td>".$this->questions['d']."</td-->";
+      echo "<td>" . $id . "</td>
+            <td>" . $this->questions['class'] . "</td>
+            <td>" . $this->questions['subject'] . "</td>
+            <td>" . $this->questions['chapter'] . "</td>
+            <td>" . $this->questions['topic'] . "</td>
+            <td>" . $sub . "</td>
+            <td align='center' class='" . $a . "' width='200px'>" . $this->questions['a'] . "</td>
+            <td align='center' class='" . $b . "' width='200px'>" . $this->questions['b'] . "</td>
+            <td align='center' class='" . $c . "' width='200px'>" . $this->questions['c'] . "</td>
+            <td align='center' class='" . $d . "' width='200px'>" . $this->questions['d'] . "</td>
+            <td align='center' class='" . $ns . "'>" . $this->questions['ns'] . "</td>
+            <td>" . $this->questions['ref'] . "</td>
+            <td> <a href='" . $this->questions['ref_link'] . "' target='_blank'>" . $this->questions['ref_link'] . "</a></td>
+            <!--td>" . $this->questions['d'] . "</td-->";
       echo '</tr>';
       $id++;
     }

@@ -1,16 +1,36 @@
 <?php
 require '../classes/dbh.class.php';
 
-class QuestionContr extends Dbh
+class TestContr extends Dbh
 {
+  private $title;
+  private $description;
+  private $testClass;
+  private $sub;
+  private $topic;
+  private $topicId;
+  private $uMark;
+  private $cMark;
+  private $wMark;
+  private $ns;
+
+  public function __construct($title, $description, $testClass, $sub, $topic, $uMark, $cMark, $wMark, $ns)
+  {
+    $this->title = $title;
+    $this->description = $description;
+    $this->testClass = $testClass;
+    $this->sub = $sub;
+    $this->topic = $topic;
+    $this->uMark = $uMark;
+    $this->cMark = $cMark;
+    $this->wMark = $wMark;
+    $this->ns = $ns;
+  }
+
   private function addTopic($topic)
   {
     $addquery = "INSERT INTO topics(topic_name,	topic_type) VALUES('$topic', 'main')";
-    if ($insertQuery = mysqli_query($this->connect(), $addquery)) {
-      // $query = mysqli_query($this->connect(), "SELECT id FROM topics ORDER BY id DESC LIMIT 1");
-      // $getId = mysqli_fetch_assoc($query);
-      // $id = $getId['id'];
-      // return $id;
+    if (mysqli_query($this->connect(), $addquery)) {
       return $this->getTopicId($topic);
     } else {
       return 0;
@@ -28,22 +48,22 @@ class QuestionContr extends Dbh
     }
   }
 
-  public function addTest($title, $description, $class, $sub, $topic, $uMark, $cMark, $wMark, $ns)
+  public function addTest()
   {
-    if (!empty($topic)) {
-      $topicId = $this->getTopicId($topic);
+    if (!empty($this->topic)) {
+      $this->topicId = $this->getTopicId($this->topic);
     } else {
-      $topicId = 'NULL';
+      $this->topicId = 'NULL';
     }
 
-    $addquery = "INSERT INTO topics(test_title, test_description, test_class, test_subject, test_topic, unattended_mark, correct_mark, wrong_mark, ns_enabled) VALUES('$title', '$description', '$class', '$sub', '$topic', '$uMark', '$cMark', '$wMark', '$ns')";
-    if ($insertQuery = mysqli_query($this->connect(), $addquery)) {
-      $query = mysqli_query($this->connect(), "SELECT id FROM tests ORDER BY id DESC LIMIT 1");
+    $addquery = "INSERT INTO tests(test_title, test_description, test_class, test_subject, test_topic, unattended_mark, correct_mark, wrong_mark, ns_enabled) VALUES('$this->title', '$this->description', '$this->testClass', '$this->sub', '$this->topicId', '$this->uMark', '$this->cMark', '$this->wMark', '$this->ns')";
+    if (mysqli_query($this->connect(), $addquery)) {
+      $query = mysqli_query($this->connect(), "SELECT test_id FROM tests ORDER BY test_id DESC LIMIT 1");
       $getId = mysqli_fetch_assoc($query);
-      $id = $getId['id'];
+      $id = $getId['test_id'];
       return $id;
     } else {
-      return 0;
+      return false;
     }
   }
 }
