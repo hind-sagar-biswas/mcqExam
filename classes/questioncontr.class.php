@@ -4,16 +4,24 @@ require '../classes/dbh.class.php';
 class QuestionContr extends Dbh
 {
 
+  public function getTopicId($topic, $type)
+  {
+    $getquery = "SELECT id FROM topics WHERE topic_name='$topic' AND topic_type='$type'";
+    $id = mysqli_fetch_assoc(mysqli_query($this->connect(), $getquery));
+    if (empty($id['id'])) {
+      return $this->addTopic($topic, $type);
+    } else {
+      return $id['id'];
+    }
+  }
+
   public function addTopic($topic, $type)
   {
     $addquery = "INSERT INTO topics(topic_name,	topic_type) VALUES('$topic', '$type')";
-    if ($insertQuery = mysqli_query($this->connect(), $addquery)) {
-      $query = mysqli_query($this->connect(), "SELECT id FROM topics ORDER BY id DESC LIMIT 1");
-      $getId = mysqli_fetch_assoc($query);
-      $id = $getId['id'];
-      return $id;
+    if (mysqli_query($this->connect(), $addquery)) {
+      return $this->getTopicId($topic, $type);
     } else {
-      return False;
+      return 0;
     }
   }
 
