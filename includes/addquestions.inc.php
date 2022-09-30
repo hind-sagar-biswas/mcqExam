@@ -41,15 +41,9 @@ if (isset($_POST['add_question'])) {
 
 
 
-  $add_topic = $question->addTopic($top, 'main');
-  if ($add_topic != False) {
-    $topId = $add_topic;
-  } else {
-    $topId = 0;
-  }
-  $add_sub_topic = $question->addTopic($sTop, 'sub');
-  if ($add_sub_topic != False) {
-    $sTopId = $add_sub_topic;
+  $topId = $question->getTopicId($top, 'main');
+  if (!empty($sTop)) {
+    $sTopId = $question->getTopicId($sTop, 'sub');
   } else {
     $sTopId = 0;
   }
