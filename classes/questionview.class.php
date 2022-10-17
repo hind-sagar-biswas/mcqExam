@@ -6,7 +6,7 @@ class QuestionView extends Dbh
   private $questions;
   private $questionViewQuery = "SELECT
     q.class,
-    sub.subjectName,
+    sub.subject_name as subjectName,
     q.chapter,
     t.topic_name AS topic,
     st.topic_name AS sub_topic,

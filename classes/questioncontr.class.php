@@ -61,7 +61,7 @@ class QuestionContr extends Dbh
 
   public function getSubjectId($subjectName)
   {
-    $getquery = "SELECT sub_id FROM subjects WHERE subjectName='$subjectName'";
+    $getquery = "SELECT sub_id FROM subjects WHERE subject_name='$subjectName'";
     $id = mysqli_fetch_assoc(mysqli_query($this->connect(), $getquery));
     if (empty($id['sub_id'])) {
       return $this->addSubject($subjectName);
@@ -72,7 +72,7 @@ class QuestionContr extends Dbh
 
   public function addSubject($subjectName)
   {
-    $addquery = "INSERT INTO subjects(subjectName) VALUES('$subjectName')";
+    $addquery = "INSERT INTO subjects(subject_name) VALUES('$subjectName')";
     if (mysqli_query($this->connect(), $addquery)) {
       return $this->getSubjectId($this->subj);
     } else {

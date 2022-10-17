@@ -1,6 +1,6 @@
 <br>
 <h2><?php echo $pageTitle; ?></h2>
-<form id="q-form" method="POST" action="includes/add.inc.php" enctype="multipart/form-data">
+<form id="q-form" method="POST" action="includes/addtests.inc.php" enctype="multipart/form-data">
   <div>
     <label class="form-label" for="title">Title <span class="text-danger">*</span> </label>
     <input class="form-control" type="text" name="title" id="title" placeholder="Test Title" required>
@@ -39,7 +39,7 @@
         <input class="form-control" type="number" name="correct-mark" id="correct-mark" value="1">
 
         <button class="btn btn-dark" type="button" disabled>Unattended:</button>
-        <input class="form-control" type="number" name="nattended-mark" id="unattended-mark" value="0">
+        <input class="form-control" type="number" name="unattended-mark" id="unattended-mark" value="0">
 
         <button class="btn btn-dark" type="button" disabled>Wrong:</button>
         <input class="form-control" type="number" name="wrong-mark" id="wrong-mark" value="0">
