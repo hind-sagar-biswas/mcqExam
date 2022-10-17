@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 16, 2022 at 01:50 PM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- Generation Time: Oct 17, 2022 at 08:17 AM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `mcqExam`
+-- Database: `mcqexam`
 --
 
 -- --------------------------------------------------------
@@ -67,6 +67,18 @@ CREATE TABLE `questions` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `subjects`
+--
+
+CREATE TABLE `subjects` (
+  `sub_id` int(11) NOT NULL,
+  `subject` varchar(225) NOT NULL,
+  `create_time` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tests`
 --
 
@@ -94,7 +106,9 @@ CREATE TABLE `tests` (
 CREATE TABLE `topics` (
   `id` int(11) NOT NULL,
   `topic_name` varchar(255) NOT NULL,
-  `topic_type` varchar(255) NOT NULL DEFAULT 'main'
+  `topic_type` varchar(255) NOT NULL DEFAULT 'main',
+  `parent_topic_id` int(225) DEFAULT NULL,
+  `create_time` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -112,6 +126,13 @@ ALTER TABLE `options`
 --
 ALTER TABLE `questions`
   ADD PRIMARY KEY (`q_id`);
+
+--
+-- Indexes for table `subjects`
+--
+ALTER TABLE `subjects`
+  ADD PRIMARY KEY (`sub_id`),
+  ADD UNIQUE KEY `SUB_NAME` (`subject`);
 
 --
 -- Indexes for table `tests`
@@ -140,6 +161,12 @@ ALTER TABLE `options`
 --
 ALTER TABLE `questions`
   MODIFY `q_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+
+--
+-- AUTO_INCREMENT for table `subjects`
+--
+ALTER TABLE `subjects`
+  MODIFY `sub_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tests`

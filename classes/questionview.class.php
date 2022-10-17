@@ -5,34 +5,36 @@ class QuestionView extends Dbh
 {
   private $questions;
   private $questionViewQuery = "SELECT
-  q.class,
-  q.subject,
-  q.chapter,
-  t.topic_name AS topic,
-  st.topic_name AS sub_topic,
-  q.q_image AS image,
-  q.q_text AS question,
-  q.q_answer AS answer,
-  q.ref_image,
-  q.ref_text AS ref,
-  q.ref_link,
-  op.option_a_img AS a_img,
-  op.option_a AS a,
-  op.option_b_img AS b_img,
-  op.option_b AS b,
-  op.option_c_img AS c_img,
-  op.option_c AS c,
-  op.option_d_img AS d_img,
-  op.option_d AS d,
-  op.option_ns AS ns
-FROM questions as q
-LEFT JOIN topics AS t
-  ON q.topic_id = t.id
-LEFT JOIN topics AS st
-  ON q.sub_topic_id = st.id
-LEFT JOIN options AS op
-  ON q.option_id = op.option_id
-ORDER BY q_id DESC;";
+    q.class,
+    sub.subject AS subjectName,
+    q.chapter,
+    t.topic_name AS topic,
+    st.topic_name AS sub_topic,
+    q.q_image AS image,
+    q.q_text AS question,
+    q.q_answer AS answer,
+    q.ref_image,
+    q.ref_text AS ref,
+    q.ref_link,
+    op.option_a_img AS a_img,
+    op.option_a AS a,
+    op.option_b_img AS b_img,
+    op.option_b AS b,
+    op.option_c_img AS c_img,
+    op.option_c AS c,
+    op.option_d_img AS d_img,
+    op.option_d AS d,
+    op.option_ns AS ns
+  FROM questions as q
+  LEFT JOIN subjects AS sub
+    ON q.subject= sub.sub_id
+  LEFT JOIN topics AS t
+    ON q.topic_id = t.id
+  LEFT JOIN topics AS st
+    ON q.sub_topic_id = st.id
+  LEFT JOIN options AS op
+    ON q.option_id = op.option_id
+  ORDER BY q_id DESC;";
 
 
   public function showQuestions()
@@ -80,7 +82,7 @@ ORDER BY q_id DESC;";
       echo '<tr>';
       echo "<td>" . $id . "</td>
             <td>" . $this->questions['class'] . "</td>
-            <td>" . $this->questions['subject'] . "</td>
+            <td>" . $this->questions['subjectName'] . "</td>
             <td>" . $this->questions['chapter'] . "</td>
             <td>" . $this->questions['topic'] . "</td>
             <td>" . $sub . "</td>
