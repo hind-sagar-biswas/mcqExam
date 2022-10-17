@@ -48,9 +48,25 @@
     </div>
   </div>
 
-  <div class="form-check mb-3">
-    <label class="form-check-label">
-      <input class="form-check-input" type="checkbox" name="not-sure"> Enable 'Not Sure' option?</label>
+  <div class="row">
+    <div class="col">
+      <div class="form-check mb-3">
+        <label for="not-sure" class="form-check-label">
+          <input type="checkbox" name="not-sure" id="not-sure" class="form-check-input"> Enable 'Not Sure' option?</label>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-check mb-3">
+        <label for="question-randomize" class="form-check-label">
+          <input type="checkbox" name="question-randomize" id="question-randomize" class="form-check-input"> Enable question randomization?</label>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-check mb-3">
+        <label for="option-randomize" class="form-check-label">
+          <input type="checkbox" name="option-randomize" id="option-randomize" class="form-check-input"> Enable option randomization?</label>
+      </div>
+    </div>
   </div>
 
   <hr>

@@ -89,18 +89,9 @@
         </div>
       </div>
 
-      <div class="input-group">
-        <div class="form-check mb-3 mx-1">
-          <p>Add 'Not Sure' option?</p>
-        </div>
-        <div class="form-check mb-3 mx-1">
-          <label class="form-check-label">
-            <input class="form-check-input" type="radio" name="not-sure" value="off" checked> No</label>
-        </div>
-        <div class="form-check mb-3">
-          <label class="form-check-label">
-            <input class="form-check-input" type="radio" name="not-sure" value="on"> Yes</label>
-        </div>
+      <div class="form-check mb-3">
+        <label for="not-sure" class="form-check-label">
+          <input type="checkbox" name="not-sure" id="not-sure" class="form-check-input"> Enable 'Not Sure' option?</label>
       </div>
 
       <hr>

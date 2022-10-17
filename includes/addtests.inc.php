@@ -13,9 +13,12 @@ if (isset($_POST['add_test'])) {
      $uMark = $_POST['correct-mark'];
      $cMark = $_POST['unattended-mark'];
      $wMark = $_POST['wrong-mark'];
-     $ns = $_POST['ns_enabled'];
 
-     $test = new TestContr($title, $description, $testClass, $sub, $topic, $uMark, $cMark, $wMark, $ns);
+     $ns = (isset($_POST['not-sure'])) ? $_POST['not-sure'] : 'off' ;
+     $qr = (isset($_POST['option-randomize'])) ? $_POST['option-randomize'] : 'off' ;
+     $or = (isset($_POST['question-randomize'])) ? $_POST['question-randomize'] : 'off' ;
+
+     $test = new TestContr($title, $description, $testClass, $sub, $topic, $uMark, $cMark, $wMark, $ns, $qr, $or);
 
      $id = $test->addTest();
      if ($id) {

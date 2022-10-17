@@ -21,7 +21,7 @@ if (isset($_POST['add_question'])) {
   $o2 = $_POST['option-b'];
   $o3 = $_POST['option-c'];
   $o4 = $_POST['option-d'];
-  $oNs = ($_POST['not-sure']) ? $_POST['not-sure'] : 'off' ;
+  $oNs = (isset($_POST['not-sure'])) ? $_POST['not-sure'] : 'off' ;
 
   //images
   $o1_i = $dateTime . $_FILES['a-image']['name'];
@@ -58,4 +58,10 @@ if (isset($_POST['add_question'])) {
     header('Location: ' . $next_path . '?m=Successful&q-id='. $add_question);
   } else header('Location: ' . $next_path . '?m=Failed to add question');
 
+}
+
+if (isset($_POST['add_question_from_test'])) {
+  $back_path = '../add-question.php';
+  $next_path = '../add-question.php';
+  $dateTime = date('Ymdhis') . '_';
 }

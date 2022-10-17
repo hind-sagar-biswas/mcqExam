@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 17, 2022 at 09:12 AM
+-- Generation Time: Oct 17, 2022 at 02:47 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -87,7 +87,7 @@ CREATE TABLE `tests` (
   `test_title` varchar(100) NOT NULL,
   `test_description` varchar(255) DEFAULT NULL,
   `test_class` varchar(100) DEFAULT NULL,
-  `test_subject` varchar(100) DEFAULT NULL,
+  `test_subject` int(11) DEFAULT NULL,
   `test_topic` int(255) DEFAULT NULL,
   `unattended_mark` int(10) NOT NULL DEFAULT 0,
   `correct_mark` int(10) NOT NULL DEFAULT 1,
@@ -97,6 +97,18 @@ CREATE TABLE `tests` (
   `opt_randomize` varchar(225) NOT NULL DEFAULT 'off',
   `create_time` datetime NOT NULL DEFAULT current_timestamp(),
   `update_type` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `test_questions`
+--
+
+CREATE TABLE `test_questions` (
+  `test_id` int(11) NOT NULL,
+  `question_id` int(11) NOT NULL,
+  `create_time` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -141,6 +153,12 @@ ALTER TABLE `subjects`
 --
 ALTER TABLE `tests`
   ADD PRIMARY KEY (`test_id`);
+
+--
+-- Indexes for table `test_questions`
+--
+ALTER TABLE `test_questions`
+  ADD PRIMARY KEY (`test_id`,`question_id`);
 
 --
 -- Indexes for table `topics`
