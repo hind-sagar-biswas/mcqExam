@@ -51,7 +51,7 @@ class QuestionContr extends Dbh
     $this->refLink = $refLink; 
 
     $this->topicId = $this->getTopicId($this->topic, "main");
-    $this->subTopicId = (!empty($this->subTopic)) ? $this->getTopicId($this->subTopic, "sub", $this->topicId); : 'NULL'; ;
+    $this->subTopicId = (!empty($this->subTopic)) ? $this->getTopicId($this->subTopic, "sub", $this->topicId) : 'NULL'; ;
 
   }
 
