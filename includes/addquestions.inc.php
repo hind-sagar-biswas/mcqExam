@@ -2,9 +2,8 @@
 require '../classes/questioncontr.class.php';
 
 if (isset($_POST['add_question'])) {
-
-  $back_path = $_POST['from'];
-  $next_path = $_POST['target'];
+  $back_path = '../add-question.php';
+  $next_path = '../add-question.php';
   $dateTime = date('Ymdhis') . '_';
 
   $cl = $_POST['class'];
@@ -40,14 +39,15 @@ if (isset($_POST['add_question'])) {
   $rImg = $dateTime . $_FILES['ref-image']['name'];
   $rImg_upload = $_FILES['ref-image']['tmp_name'];
 
-
+  // Question setup and creation
   $question = new QuestionContr();
   $question->questionSetup($cl, $sub, $cha, $top, $sTop, $img, $q, $a, $o1, $o1_i, $o2, $o2_i, $o3, $o3_i, $o4, $o4_i, $oNs, $rImg, $ref, $refLink);
   $add_question = $question->create();
   $img_folder_path = $question->img_upload_path;
 
-  echo 'Location: ' . $next_path . '?m='. $add_question;
-  if ($add_question  != 0) {
+  // If successful only then upload files else don't
+  if ($add_question) {
+    // file upload
     move_uploaded_file($o1_i_u, $img_folder_path . $o1_i);
     move_uploaded_file($o2_i_u, $img_folder_path . $o2_i);
     move_uploaded_file($o3_i_u, $img_folder_path . $o3_i);
@@ -55,8 +55,7 @@ if (isset($_POST['add_question'])) {
     move_uploaded_file($img_upload, $img_folder_path . $img);
     move_uploaded_file($rImg_upload, $img_folder_path . $rImg);
 
-    //header('Location: ' . $next_path . '?m='. $add_question);
-  }
-  //header('Location: ' . $next_path . '?m=' . $add_question);
+    header('Location: ' . $next_path . '?m=Successful&q-id='. $add_question);
+  } else header('Location: ' . $next_path . '?m=Failed to add question');
 
 }

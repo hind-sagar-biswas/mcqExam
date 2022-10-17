@@ -83,7 +83,7 @@ class QuestionContr extends Dbh
   public function getTopicId($topic, $type, $parent = null)
   {
     $getquery = "SELECT id FROM topics WHERE topic_name='$topic' AND topic_type='$type'";
-    if ($type == 'sub') $getquery = $getquery . "parent_topic_id='$parent'" ;
+    if ($type == 'sub') $getquery = $getquery . " AND parent_topic_id='$parent'" ;
     
     $id = mysqli_fetch_assoc(mysqli_query($this->connect(), $getquery));
     if (empty($id['id'])) {

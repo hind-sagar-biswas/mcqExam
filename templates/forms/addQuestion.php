@@ -89,9 +89,18 @@
         </div>
       </div>
 
-      <div class="form-check mb-3">
-        <label class="form-check-label">
-        <input class="form-check-input" type="checkbox" name="not-sure"> Add 'Not Sure' option</label>
+      <div class="input-group">
+        <div class="form-check mb-3 mx-1">
+          <p>Add 'Not Sure' option?</p>
+        </div>
+        <div class="form-check mb-3 mx-1">
+          <label class="form-check-label">
+            <input class="form-check-input" type="radio" name="not-sure" value="off" checked> No</label>
+        </div>
+        <div class="form-check mb-3">
+          <label class="form-check-label">
+            <input class="form-check-input" type="radio" name="not-sure" value="on"> Yes</label>
+        </div>
       </div>
 
       <hr>
@@ -122,13 +131,9 @@
       </div>
 
     </div>
-  </div>
-  <hr>
-  <div align="right">
-    <button type="submit" class="btn btn-primary" name="add_question">SUBMIT</button>
-    <button type="reset" class="btn btn-danger">RESET</button>
-  </div>
-
-  <input type="hidden" name="from" value="<?php echo $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . $_SERVER['SCRIPT_NAME']; ?>">
-  <input type="hidden" name="target" value="<?php echo $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . $_SERVER['SCRIPT_NAME']; ?>">
+    <hr>
+    <div align="right">
+      <button type="submit" class="btn btn-primary" name="add_question">SUBMIT</button>
+      <button type="reset" class="btn btn-danger">RESET</button>
+    </div>
 </form>
