@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `r_project`
+-- Database: `mcqExam`
 --
 
 -- --------------------------------------------------------
@@ -39,21 +39,6 @@ CREATE TABLE `options` (
   `option_d` varchar(255) NOT NULL,
   `option_ns` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `options`
---
-
-INSERT INTO `options` (`option_id`, `option_a_img`, `option_b_img`, `option_c_img`, `option_d_img`, `option_a`, `option_b`, `option_c`, `option_d`, `option_ns`) VALUES
-(1, '', '5.png', '', '4.png', 'dont know', '', 'wtf', 'tuu', ' on'),
-(2, '', '5.png', '', '4.png', 'dont know', '', 'wtf', 'tuu', ' on'),
-(3, '20220902112722_', '20220902112722_5.png', '20220902112722_', '20220902112722_4.png', 'dont know', '', 'wtf', 'tuu', ' on'),
-(4, '20220902115041_', '20220902115041_5.png', '20220902115041_', '20220902115041_4.png', 'dont know', '', 'wtf', 'tuu', 'on'),
-(5, '20220902115735_', '20220902115735_5.png', '20220902115735_', '20220902115735_4.png', 'dont know', '', 'wtf', 'tuu', 'on'),
-(6, '20220902014433_', '20220902014433_', '20220902014433_', '20220902014433_', 'gt', 'sd', 'hn', 'k', ''),
-(7, '20220902014543_', '20220902014543_', '20220902014543_', '20220902014543_', 'gt', 'sd', 'hn', 'k', ''),
-(8, '20220902014634_', '20220902014634_', '20220902014634_', '20220902014634_', 'gt', 'sd', 'hn', 'k', ''),
-(9, '20220902014655_', '20220902014655_', '20220902014655_', '20220902014655_', 'gt', 'sd', 'hn', 'k', '');
 
 -- --------------------------------------------------------
 
@@ -78,21 +63,6 @@ CREATE TABLE `questions` (
   `create_time` datetime NOT NULL DEFAULT current_timestamp(),
   `update_time` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `questions`
---
-
-INSERT INTO `questions` (`q_id`, `class`, `subject`, `chapter`, `topic_id`, `sub_topic_id`, `q_image`, `q_text`, `q_answer`, `option_id`, `ref_image`, `ref_text`, `ref_link`, `create_time`, `update_time`) VALUES
-(24, 'five', 'chemistry', 'org', 0, 0, '20220902112218_1download.jpg', '\r\n      what is your name?', 'b', 0, '20220902112218_1.jpg', '', NULL, '2022-09-02 15:22:18', '2022-09-02 15:22:18'),
-(25, 'five', 'chemistry', 'org', 0, 0, '20220902112549_1download.jpg', '\r\n      what is your name?', 'b', 2, '20220902112549_1.jpg', '', NULL, '2022-09-02 15:25:49', '2022-09-02 15:25:49'),
-(26, 'five', 'chemistry', 'org', 0, 0, '20220902112722_1download.jpg', '\r\n      what is your name?', 'b', 3, '20220902112722_1.jpg', '', NULL, '2022-09-02 15:27:22', '2022-09-02 15:27:22'),
-(27, 'five', 'chemistry', 'org', 0, 0, '20220902115041_1download.jpg', '\r\n      what is your name?', 'b', 0, '20220902115041_1.jpg', '', 'http://localhost/phpmyadmin/index.php?route=/sql&db=r_project&table=questions&pos=0', '2022-09-02 15:50:41', '2022-09-02 15:50:41'),
-(28, 'five', 'chemistry', 'org', 4, 5, '20220902115735_1download.jpg', '\r\n      what is your name?', 'b', 5, '20220902115735_1.jpg', '', 'http://localhost/phpmyadmin/index.php?route=/sql&db=r_project&table=questions&pos=0', '2022-09-02 15:57:35', '2022-09-02 15:57:35'),
-(29, 'five', 'sdfgdfg', 'sdfgfsd', 6, 7, '20220902014433_5.png', '\r\n      gyuoip[]', 'a', 6, '20220902014433_', 'gnj', '', '2022-09-02 17:44:33', '2022-09-02 17:44:33'),
-(30, 'five', 'sdfgdfg', 'sdfgfsd', 8, 9, '20220902014543_5.png', '\r\n      gyuoip[]', 'a', 7, '20220902014543_', 'gnj', '', '2022-09-02 17:45:44', '2022-09-02 17:45:44'),
-(31, 'five', 'sdfgdfg', 'sdfgfsd', 10, 11, '20220902014634_5.png', '\r\n      gyuoip[]', 'a', 8, '20220902014634_', 'gnj', '', '2022-09-02 17:46:34', '2022-09-02 17:46:34'),
-(32, 'five', 'sdfgdfg', 'sdfgfsd', 12, 13, '20220902014655_5.png', '\r\n      gyuoip[]', 'a', 9, '20220902014655_', 'gnj', '', '2022-09-02 17:46:55', '2022-09-02 17:46:55');
 
 -- --------------------------------------------------------
 
@@ -126,25 +96,6 @@ CREATE TABLE `topics` (
   `topic_name` varchar(255) NOT NULL,
   `topic_type` varchar(255) NOT NULL DEFAULT 'main'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `topics`
---
-
-INSERT INTO `topics` (`id`, `topic_name`, `topic_type`) VALUES
-(1, 'isomerism', 'main'),
-(2, 'isomerism', 'main'),
-(3, 'isomerism', 'sub'),
-(4, 'isomerism', 'main'),
-(5, 'isomerism', 'sub'),
-(6, 'isomerism', 'main'),
-(7, 'isomerism', 'sub'),
-(8, 'isomerism', 'main'),
-(9, 'isomerism', 'sub'),
-(10, 'isomerism', 'main'),
-(11, 'dty7u', 'sub'),
-(12, 'isomerism', 'main'),
-(13, '', 'sub');
 
 --
 -- Indexes for dumped tables

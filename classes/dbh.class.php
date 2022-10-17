@@ -5,7 +5,7 @@ class Dbh
   private $host = "localhost";
   private $user = "root";
   private $pass = "";
-  private $dbName = "r_project";
+  private $dbName = "mcqExam";
 
   private $port;
 
