@@ -89,7 +89,7 @@ class TestContr extends Dbh
       $this->topicId = 'NULL';
     }
 
-    $addquery = "INSERT INTO tests(test_title, test_description, test_class, test_subject, test_topic, unattended_mark, correct_mark, wrong_mark, ns_enabled, ques_randomize,	opt_randomize) VALUES('$this->title', '$this->description', '$this->testClass', '$this->sub', '$this->topicId', '$this->uMark', '$this->cMark', '$this->wMark', '$this->notSure', '$this->questionRandomize', '$this->optionRandomize')";
+    $addquery = "INSERT INTO tests(test_title, test_description, test_class, test_subject, test_topic, unattended_mark, correct_mark, wrong_mark, ns_enabled, ques_randomize,	opt_randomize) VALUES('$this->title', '$this->description', '$this->testClass', $this->subId, $this->topicId, '$this->uMark', '$this->cMark', '$this->wMark', '$this->notSure', '$this->questionRandomize', '$this->optionRandomize')";
     if (mysqli_query($this->connect(), $addquery)) {
       $query = mysqli_query($this->connect(), "SELECT test_id FROM tests ORDER BY test_id DESC LIMIT 1");
       $getId = mysqli_fetch_assoc($query);

@@ -31,7 +31,7 @@ class TestView extends Dbh
 
      private function getSubject($subjectId)
      {
-          if (!$subjectId) return 'Not set!';
+          if (!$subjectId) return '';
           $getquery = "SELECT subject_name FROM subjects WHERE sub_id=$subjectId";
           $subj = mysqli_fetch_assoc(mysqli_query($this->connect(), $getquery));
           return $subj['subject_name'];
@@ -39,6 +39,7 @@ class TestView extends Dbh
 
      private function getTopic($topicId)
      {
+          if (!$topicId) return '';
           $getquery = "SELECT topic_name FROM topics WHERE id=$topicId";
           $topic = mysqli_fetch_assoc(mysqli_query($this->connect(), $getquery));
           return $topic['topic_name'];
@@ -61,11 +62,11 @@ class TestView extends Dbh
                     $this->notSure = $test['ns_enabled'];
                     $this->questionRandomize = $test['ques_randomize'];
                     $this->optionRandomize = $test['opt_randomize'];
-                    $this->questionsAccesible = True;
 
                     $this->subjectName = $this->getSubject($this->subId);
                     $this->topic = $this->getTopic($this->topicId);
 
+                    $this->questionsAccesible = True;
                     return False;
                } else return 'Unable to acccess test : No test found with id(' . $this->id . ')!';
           } else return 'Unable to acccess test : No test id provided';
@@ -87,5 +88,10 @@ class TestView extends Dbh
                     array_push($this->asssociatedQuestions, $question);
                }
           } else return 'Unable to acccess questions';
+     }
+
+     public function getAssociatedQuestions()
+     {
+          return $this->associatedQuestions;
      }
 }

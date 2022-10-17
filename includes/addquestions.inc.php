@@ -1,9 +1,20 @@
 <?php
 require '../classes/questioncontr.class.php';
+require '../classes/questionsetcontr.class.php';
 
-if (isset($_POST['add_question'])) {
-  $back_path = '../add-question.php';
-  $next_path = '../add-question.php';
+if (isset($_POST['add_question']) || isset($_POST['add_question_from_test'])) {
+
+  if (isset($_POST['add_question'])) {
+    $back_path = '../add-question.php';
+    $next_path = '../add-question.php';
+
+    $oNs = (isset($_POST['not-sure'])) ? $_POST['not-sure'] : 'off';
+  } else if (isset($_POST['add_question_from_test'])) {
+    $next_path = '../create-test.php';
+
+    $oNs = $_POST['not-sure'];
+    $testId = intval($_POST['test-id']);
+  }
   $dateTime = date('Ymdhis') . '_';
 
   $cl = $_POST['class'];
@@ -21,7 +32,6 @@ if (isset($_POST['add_question'])) {
   $o2 = $_POST['option-b'];
   $o3 = $_POST['option-c'];
   $o4 = $_POST['option-d'];
-  $oNs = (isset($_POST['not-sure'])) ? $_POST['not-sure'] : 'off' ;
 
   //images
   $o1_i = $dateTime . $_FILES['a-image']['name'];
@@ -54,6 +64,11 @@ if (isset($_POST['add_question'])) {
     move_uploaded_file($o4_i_u, $img_folder_path . $o4_i);
     move_uploaded_file($img_upload, $img_folder_path . $img);
     move_uploaded_file($rImg_upload, $img_folder_path . $rImg);
+
+    if (isset($_POST['add_question_from_test'])) {
+      $set = new QuestionSetContr($add_question, $testId);
+      header('Location: ' . $next_path . '?m=Successful&i=' . $testId);
+    }
 
     header('Location: ' . $next_path . '?m=Successful&q-id='. $add_question);
   } else header('Location: ' . $next_path . '?m=Failed to add question');
