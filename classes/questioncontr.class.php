@@ -33,7 +33,7 @@ class QuestionContr extends Dbh
   public function questionSetup($cls, $subj, $chapter, $topic, $subTopic, $image, $question, $answer, $op1, $op1Img, $op2, $op2Img, $op3, $op3Img, $op4, $op4Img, $opNs, $refImg, $ref , $refLink)
   {
     $this->cls = $cls;
-    $this->subject = $subj;
+    $this->subj = $subj;
     $this->chapter = $chapter;
     $this->topic = $topic;
     $this->subTopic = $subTopic;
@@ -61,18 +61,18 @@ class QuestionContr extends Dbh
 
   public function getSubjectId($subjectName)
   {
-    $getquery = "SELECT sub_id FROM subjects WHERE subject='$subjectName'";
+    $getquery = "SELECT sub_id FROM subjects WHERE subjectName='$subjectName'";
     $id = mysqli_fetch_assoc(mysqli_query($this->connect(), $getquery));
     if (empty($id['sub_id'])) {
       return $this->addSubject($subjectName);
     } else {
-      return $id['id'];
+      return $id['sub_id'];
     }
   }
 
   public function addSubject($subjectName)
   {
-    $addquery = "INSERT INTO topics(topic_name,	topic_type, parent_topic_id) VALUES('$subjectName')";
+    $addquery = "INSERT INTO subjects(subjectName) VALUES('$subjectName')";
     if (mysqli_query($this->connect(), $addquery)) {
       return $this->getSubjectId($this->subj);
     } else {
@@ -82,9 +82,8 @@ class QuestionContr extends Dbh
 
   public function getTopicId($topic, $type, $parent = null)
   {
-    $getquery = "SELECT id FROM topics WHERE topic_name='$topic' AND topic_type='$type' AND ";
-    if ($type == 'main') $getquery += "topic_parent_id=NULL" ;
-    else $getquery += "topic_parent_id='$parent'";
+    $getquery = "SELECT id FROM topics WHERE topic_name='$topic' AND topic_type='$type'";
+    if ($type == 'sub') $getquery = $getquery . "parent_topic_id='$parent'" ;
     
     $id = mysqli_fetch_assoc(mysqli_query($this->connect(), $getquery));
     if (empty($id['id'])) {
@@ -96,9 +95,13 @@ class QuestionContr extends Dbh
 
   public function addTopic($topic, $type, $parent)
   {
-    $addquery = "INSERT INTO topics(topic_name,	topic_type, parent_topic_id) VALUES('$topic', '$type', '$parent')";
+    $addquery = "INSERT INTO topics(topic_name,	topic_type, parent_topic_id) VALUES('$topic', '$type'";
+    if($parent == null) $addquery = $addquery . ", NULL";
+    else $addquery = $addquery . ", '$parent'";
+    $addquery = $addquery . ")";
+    
     if (mysqli_query($this->connect(), $addquery)) {
-      return $this->getTopicId($topic, $type);
+      return $this->getTopicId($topic, $type, $parent);
     } else {
       return 0;
     }
@@ -106,7 +109,7 @@ class QuestionContr extends Dbh
 
   public function getOptionId()
   {
-    $addquery = "INSERT INTO options(option_a_img,	option_b_img,	option_c_img,	option_d_img,	option_a,	option_b,	option_c,	option_d,	option_ns) VALUES('$this->op1', '$this->op1Img', '$this->op2', '$this->op2Img', '$this->op3', '$this->op3Img', '$this->op4', '$this->op4Img', '$this->opNs')";
+    $addquery = "INSERT INTO options(option_a_img,	option_b_img,	option_c_img,	option_d_img,	option_a,	option_b,	option_c,	option_d,	option_ns) VALUES('$this->op1Img', '$this->op2Img', '$this->op3Img', '$this->op4Img', '$this->op1', '$this->op2', '$this->op3', '$this->op4', '$this->opNs')";
     if ($insertQuery = mysqli_query($this->connect(), $addquery)) {
       $query = mysqli_query($this->connect(), "SELECT option_id FROM options ORDER BY option_id DESC LIMIT 1");
       $getId = mysqli_fetch_assoc($query);

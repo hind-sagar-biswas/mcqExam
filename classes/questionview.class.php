@@ -6,7 +6,7 @@ class QuestionView extends Dbh
   private $questions;
   private $questionViewQuery = "SELECT
     q.class,
-    sub.subject AS subjectName,
+    sub.subjectName,
     q.chapter,
     t.topic_name AS topic,
     st.topic_name AS sub_topic,
@@ -56,11 +56,12 @@ class QuestionView extends Dbh
         $sub = '<span class="badge bg-warning">none</span>';
       }
 
-      if (empty($this->questions['ns'])) {
+      if (empty($this->questions['ns']) || $this->questions['ns'] == 'off') {
         $this->questions['ns'] = '<span class="badge rounded-pill bg-danger">off</span>';
       } else {
         $this->questions['ns'] = '<span class="badge rounded-pill bg-success">on</span>';
       }
+      
 
       switch ($this->questions['answer']) {
         case "a":

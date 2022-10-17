@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 17, 2022 at 08:17 AM
+-- Generation Time: Oct 17, 2022 at 09:12 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -49,7 +49,7 @@ CREATE TABLE `options` (
 CREATE TABLE `questions` (
   `q_id` int(11) NOT NULL,
   `class` varchar(255) NOT NULL,
-  `subject` varchar(255) NOT NULL,
+  `subject` int(11) NOT NULL,
   `chapter` varchar(255) NOT NULL,
   `topic_id` int(11) NOT NULL,
   `sub_topic_id` int(11) DEFAULT NULL,
@@ -72,7 +72,7 @@ CREATE TABLE `questions` (
 
 CREATE TABLE `subjects` (
   `sub_id` int(11) NOT NULL,
-  `subject` varchar(225) NOT NULL,
+  `subjectName` varchar(225) NOT NULL,
   `create_time` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -93,6 +93,8 @@ CREATE TABLE `tests` (
   `correct_mark` int(10) NOT NULL DEFAULT 1,
   `wrong_mark` int(10) NOT NULL DEFAULT 0,
   `ns_enabled` varchar(255) NOT NULL DEFAULT 'off',
+  `ques_randomize` varchar(225) NOT NULL DEFAULT 'off',
+  `opt_randomize` varchar(225) NOT NULL DEFAULT 'off',
   `create_time` datetime NOT NULL DEFAULT current_timestamp(),
   `update_type` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -132,7 +134,7 @@ ALTER TABLE `questions`
 --
 ALTER TABLE `subjects`
   ADD PRIMARY KEY (`sub_id`),
-  ADD UNIQUE KEY `SUB_NAME` (`subject`);
+  ADD UNIQUE KEY `SUB_NAME` (`subjectName`);
 
 --
 -- Indexes for table `tests`
@@ -154,13 +156,13 @@ ALTER TABLE `topics`
 -- AUTO_INCREMENT for table `options`
 --
 ALTER TABLE `options`
-  MODIFY `option_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `option_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `q_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `q_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `subjects`
@@ -178,7 +180,7 @@ ALTER TABLE `tests`
 -- AUTO_INCREMENT for table `topics`
 --
 ALTER TABLE `topics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

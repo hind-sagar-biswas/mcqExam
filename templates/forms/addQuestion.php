@@ -91,7 +91,7 @@
 
       <div class="form-check mb-3">
         <label class="form-check-label">
-          <input class="form-check-input" type="checkbox" name="not-sure"> Add 'Not Sure' option</label>
+        <input class="form-check-input" type="checkbox" name="not-sure"> Add 'Not Sure' option</label>
       </div>
 
       <hr>

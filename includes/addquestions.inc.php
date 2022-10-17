@@ -1,7 +1,6 @@
 <?php
 require '../classes/questioncontr.class.php';
 
-
 if (isset($_POST['add_question'])) {
 
   $back_path = $_POST['from'];
@@ -23,7 +22,8 @@ if (isset($_POST['add_question'])) {
   $o2 = $_POST['option-b'];
   $o3 = $_POST['option-c'];
   $o4 = $_POST['option-d'];
-  $oNs = $_POST['not-sure'];
+  $oNs = ($_POST['not-sure']) ? $_POST['not-sure'] : 'off' ;
+
   //images
   $o1_i = $dateTime . $_FILES['a-image']['name'];
   $o2_i = $dateTime . $_FILES['b-image']['name'];
@@ -46,7 +46,8 @@ if (isset($_POST['add_question'])) {
   $add_question = $question->create();
   $img_folder_path = $question->img_upload_path;
 
-  if ($add_question) {
+  echo 'Location: ' . $next_path . '?m='. $add_question;
+  if ($add_question  != 0) {
     move_uploaded_file($o1_i_u, $img_folder_path . $o1_i);
     move_uploaded_file($o2_i_u, $img_folder_path . $o2_i);
     move_uploaded_file($o3_i_u, $img_folder_path . $o3_i);
@@ -54,8 +55,8 @@ if (isset($_POST['add_question'])) {
     move_uploaded_file($img_upload, $img_folder_path . $img);
     move_uploaded_file($rImg_upload, $img_folder_path . $rImg);
 
-    header('Location: ' . $next_path . '');
+    //header('Location: ' . $next_path . '?m='. $add_question);
   }
-  header('Location: ' . $back_path . '');
+  //header('Location: ' . $next_path . '?m=' . $add_question);
 
 }
