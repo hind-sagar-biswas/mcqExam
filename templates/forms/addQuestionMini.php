@@ -8,7 +8,12 @@
              <div class="input-group mb-1 mr-sm-1">
 
                  <button class="btn btn-light" type="button" disabled>Upload XL: </button>
-                 <input class="form-control" type="file" name="xl-sheet" placeholder="">
+                 <input class="form-control" type="file" name="xl-sheet" placeholder="" reqired>
+
+                 <input type="hidden" name="test-id" placeholder="" value="<?php echo $_GET['i']; ?>" required>
+                 <input type="hidden" name="class" placeholder="" value="<?php echo $testObject->testClass; ?>" required>
+                 <input type="hidden" name="not-sure" id="not-sure" class="form-check-input" value="<?php echo $testObject->notSure; ?>">
+                 <input class="form-control" type="hidden" name="subject" placeholder="" value="<?php echo $testObject->subjectName; ?>" >
 
                  <button type="submit" class="btn btn-primary" name="add_question_from_xl">SUBMIT</button>
 

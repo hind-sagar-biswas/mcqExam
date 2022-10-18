@@ -1,10 +1,55 @@
 <?php
+
+// SIMPLE XLSX
+use Shuchkin\SimpleXLSX;
+ini_set('error_reporting', E_ALL);
+ini_set('display_errors', true);
+require_once __DIR__ . '/../simplexlsx/src/SimpleXLSX.php';
+
+// CLASS IMPORTS
 require '../classes/dbh.class.php';
 require '../classes/questioncontr.class.php';
 require '../classes/questionsetcontr.class.php';
 
+// XL SHEET UPLOAD HANDELING
+if (isset($_POST['add_question_from_xl'])) {
+  $next_path = '../add-question.php';
 
-if (isset($_POST['add_question']) || isset($_POST['add_question_from_test'])) {
+  $xlFile = $_FILES["xl-sheet"]["tmp_name"];
+  echo '<h1>Parse books.xslx</h1><pre>';
+  if ($xlsx = SimpleXLSX::parse($xlFile)) {
+    $questionList = $xlsx->rows();
+    $rowCount = 0;
+    foreach ($questionList as $question) {
+      if ($rowCount > 1) {
+        if (isset($_POST['test-xl-form'])) {
+          $testId = intval($_POST['test-id']);
+          $next_path = '../create-test.php';
+
+          $question[1] = (!empty($_POST['class'])) ? $_POST['not-sure'] : $question[1];
+          $question[2] = (!empty($_POST['subject'])) ? $_POST['not-sure'] : $question[2];
+          $question[12] = (!empty($_POST['not-sure'])) ? $_POST['not-sure'] : $question[12];
+        }
+        $rowCount += 1;
+
+        $questionObject = new QuestionContr();
+        $questionObject->questionSetup($question[1], $question[2], $question[3], $question[4], $question[5], '', $question[6], $question[7], $question[8], '', $question[9], '', $question[10], '', $question[11], '', $question[12], '', $question[13], $question[14]);
+        // ($cl, $sub, $cha, $top, $sTop, $img, $q, $a, $o1, $o1_i, $o2, $o2_i, $o3, $o3_i, $o4, $o4_i, $oNs, $rImg, $ref, $refLink);
+        $add_question = $questionObject->create();
+
+        if (isset($_POST['test-xl-form'])) {
+          $set = new QuestionSetContr($add_question, $testId);
+        }
+      }
+    }
+    header('Location: ' . $next_path . '?m=Successful&i=' . $testId);
+  } else {
+    header('Location: ' . $next_path . '?m='. SimpleXLSX::parseError() . '&i=' . $testId);
+  }
+  echo '<pre>';
+}
+// MANUAL QUESTION ADD HANDELING
+else if (isset($_POST['add_question']) || isset($_POST['add_question_from_test'])) {
 
   if (isset($_POST['add_question'])) {
     $back_path = '../add-question.php';
@@ -19,6 +64,7 @@ if (isset($_POST['add_question']) || isset($_POST['add_question_from_test'])) {
   }
   $dateTime = date('Ymdhis') . '_';
 
+  //QUESTION INFORMATION
   $cl = $_POST['class'];
   $sub = $_POST['subject'];
   $cha = $_POST['chapter'];
@@ -29,13 +75,13 @@ if (isset($_POST['add_question']) || isset($_POST['add_question_from_test'])) {
   $ref = $_POST['ref'];
   $refLink = $_POST['ref-link'];
 
-  //options
+  //OPTIONS
   $o1 = $_POST['option-a'];
   $o2 = $_POST['option-b'];
   $o3 = $_POST['option-c'];
   $o4 = $_POST['option-d'];
 
-  //images
+  //IMAGES
   $o1_i = $dateTime . $_FILES['a-image']['name'];
   $o2_i = $dateTime . $_FILES['b-image']['name'];
   $o3_i = $dateTime . $_FILES['c-image']['name'];
@@ -74,10 +120,4 @@ if (isset($_POST['add_question']) || isset($_POST['add_question_from_test'])) {
     
   } else header('Location: ' . $next_path . '?m=Failed to add question');
 
-}
-
-if (isset($_POST['add_question_from_test'])) {
-  $back_path = '../add-question.php';
-  $next_path = '../add-question.php';
-  $dateTime = date('Ymdhis') . '_';
 }
