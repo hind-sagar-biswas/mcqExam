@@ -1,10 +1,10 @@
 <?php
-require './classes/dbh.class.php';
 
 class QuestionView extends Dbh
 {
   private $questions;
-  private $questionViewQuery = "SELECT
+  protected $questionViewQuery =
+  "SELECT
     q.class,
     sub.subject_name as subjectName,
     q.chapter,
@@ -33,13 +33,14 @@ class QuestionView extends Dbh
   LEFT JOIN topics AS st
     ON q.sub_topic_id = st.id
   LEFT JOIN options AS op
-    ON q.option_id = op.option_id
+    ON q.option_id = op.option_id";
+  protected $orderQuery = "
   ORDER BY q_id DESC;";
 
 
   public function showQuestions()
   {
-    $query = mysqli_query($this->connect(), $this->questionViewQuery);
+    $query = mysqli_query($this->connect(), $this->questionViewQuery . $this->orderQuery);
     $id = 1;
     $sub = '<span class="badge badge-warning>none</span>';
 
@@ -98,5 +99,12 @@ class QuestionView extends Dbh
       echo '</tr>';
       $id++;
     }
+  }
+
+  public function getQuestion($questionId)
+  {
+    $whereQuery = " WHERE q.q_id = $questionId ";
+    $query = mysqli_query($this->connect(), $this->questionViewQuery  . $whereQuery . $this->orderQuery);
+    return mysqli_fetch_assoc($query);
   }
 }

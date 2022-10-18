@@ -1,6 +1,8 @@
 <?php
+require '../classes/dbh.class.php';
 require '../classes/questioncontr.class.php';
 require '../classes/questionsetcontr.class.php';
+
 
 if (isset($_POST['add_question']) || isset($_POST['add_question_from_test'])) {
 
@@ -9,9 +11,9 @@ if (isset($_POST['add_question']) || isset($_POST['add_question_from_test'])) {
     $next_path = '../add-question.php';
 
     $oNs = (isset($_POST['not-sure'])) ? $_POST['not-sure'] : 'off';
-  } else if (isset($_POST['add_question_from_test'])) {
+  }
+  else if (isset($_POST['add_question_from_test'])) {
     $next_path = '../create-test.php';
-
     $oNs = $_POST['not-sure'];
     $testId = intval($_POST['test-id']);
   }
@@ -68,9 +70,8 @@ if (isset($_POST['add_question']) || isset($_POST['add_question_from_test'])) {
     if (isset($_POST['add_question_from_test'])) {
       $set = new QuestionSetContr($add_question, $testId);
       header('Location: ' . $next_path . '?m=Successful&i=' . $testId);
-    }
-
-    header('Location: ' . $next_path . '?m=Successful&q-id='. $add_question);
+    } else header('Location: ' . $next_path . '?m=Successful&q-id=' . $add_question);
+    
   } else header('Location: ' . $next_path . '?m=Failed to add question');
 
 }

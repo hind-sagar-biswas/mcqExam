@@ -1,12 +1,11 @@
 <?php
-require './classes/dbh.class.php';
 
-class TestView extends Dbh
+class TestView extends QuestionView
 {
      private $getAllQuery = "SELECT * FROM tests";
      private $questionsAccesible = False;
 
-     private $associatedQuestions = array();
+     private $associatedQuestions;
 
      public $id;
      public $title;
@@ -79,19 +78,21 @@ class TestView extends Dbh
           }
      }
 
-     public function getQuestions()
+     private function getQuestions()
      {
           if ($this->questionsAccesible) {
+               $this->associatedQuestions = array();
                $getquery = "SELECT * FROM test_questions WHERE test_id=$this->id ORDER BY create_time DESC";
                $query = (mysqli_query($this->connect(), $getquery));
                while ($question =  mysqli_fetch_assoc($query)) {
-                    array_push($this->asssociatedQuestions, $question);
+                    array_push($this->associatedQuestions, $this->getQuestion($question['question_id']));
                }
           } else return 'Unable to acccess questions';
      }
 
      public function getAssociatedQuestions()
      {
+          $this->getQuestions();
           return $this->associatedQuestions;
      }
 }

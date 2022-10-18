@@ -1,8 +1,10 @@
 <?php
 $pageTitle = "All Questions";
 
-require './templates/head.php';
+require './classes/dbh.class.php';
 include './classes/questionview.class.php';
+require './templates/head.php';
+
 $questionView = new QuestionView();
 ?>
 <div class="container-fluid">

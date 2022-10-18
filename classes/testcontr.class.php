@@ -1,5 +1,4 @@
 <?php
-require '../classes/dbh.class.php';
 
 class TestContr extends Dbh
 {

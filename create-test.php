@@ -1,8 +1,10 @@
 <?php
 $pageTitle = "Create Test";
 
-require './templates/head.php';
+require './classes/dbh.class.php';
+include './classes/questionview.class.php';
 include './classes/testview.class.php';
+require './templates/head.php';
 
 if (isset($_GET['i'])) {
      $testObject = new TestView($_GET['i']);
@@ -42,15 +44,15 @@ if (isset($_GET['i'])) {
      </div>
 </div>
 
-<div class="container mb-2">
-     <div class="row card">
+<div class="container mb-2 card">
+     <div class="row">
+          <div class="col-5">
+               <!-- QUERYING ALL QUESTIONS -->
+               <?php require './templates/questionsForTestCreate.php'; ?>
+          </div>
           <div class="col">
                <!-- FORM FOR ADDING QUESTIONS -->
                <?php require './templates/forms/addQuestionMini.php'; ?>
-          </div>
-          <div class="col-3 card">
-               <!-- QUERYING ALL QUESTIONS -->
-               <?php require './templates/questionsForTestCreate.php'; ?>
           </div>
      </div>
 </div>

@@ -1,7 +1,24 @@
  <br>
- <h3>Add Questions</h3>
+ <div class="row">
+     <div class="col-md">
+         <h3>Add Questions</h3>
+     </div>
+     <div class="col-md">
+         <form id="test-xl-form" method="POST" action="includes/addquestions.inc.php" enctype="multipart/form-data">
+             <div class="input-group mb-1 mr-sm-1">
+
+                 <button class="btn btn-light" type="button" disabled>Upload XL: </button>
+                 <input class="form-control" type="file" name="xl-sheet" placeholder="">
+
+                 <button type="submit" class="btn btn-primary" name="add_question_from_xl">SUBMIT</button>
+
+             </div>
+         </form>
+     </div>
+ </div>
+
  <form id="q-form" method="POST" action="includes/addquestions.inc.php" enctype="multipart/form-data">
-     <input type="hidden" name="class" placeholder="" value="<?php echo $testObject->className; ?>" required>
+     <input type="hidden" name="class" placeholder="" value="<?php echo $testObject->testClass; ?>" required>
      <input type="hidden" name="test-id" placeholder="" value="<?php echo $_GET['i']; ?>" required>
      <input type="hidden" name="not-sure" id="not-sure" class="form-check-input" value="<?php echo $testObject->notSure; ?>">
      <div class="row">
@@ -43,7 +60,6 @@
                  <button type="submit" class="btn btn-primary" name="add_question_from_test">SUBMIT</button>
                  <button type="reset" class="btn btn-danger">RESET</button>
              </div>
-
          </div>
          <div class="col">
 
@@ -95,7 +111,7 @@
 
              <hr>
 
-             <div>
+             <div class="row">
                  <label class="form-label" for="answer">Answer:</label>
                  <select class="form-select" name="answer" placeholder="Correct Answer">
                      <option value="a">A</option>
@@ -121,6 +137,6 @@
                      <input class="form-control" type="url" name="ref-link" placeholder="">
                  </div>
              </div>
-
          </div>
+     </div>
  </form>

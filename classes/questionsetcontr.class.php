@@ -1,5 +1,4 @@
 <?php
-require '../classes/dbh.class.php';
 
 class QuestionSetContr extends Dbh
 {
@@ -15,9 +14,9 @@ class QuestionSetContr extends Dbh
 
     private function checkExists()
     {
-        $getquery = "SELECT sub_id FROM test_questions WHERE test_id=$this->testId AND question_id = $this->questionId";
+        $getquery = "SELECT * FROM test_questions WHERE test_id=$this->testId AND question_id = $this->questionId";
         $id = mysqli_fetch_assoc(mysqli_query($this->connect(), $getquery));
-        if (!empty($id['sub_id'])) return True;
+        if (!empty($id['test_id'])) return True;
         return False;
     }
 

@@ -1,8 +1,6 @@
 <?php
 $pageTitle = "Homepage";
 require './templates/head.php';
-include './classes/questionview.class.php';
-$questionView = new QuestionView();
 ?>
 <div class="container-fluid p-5">
   <ul type="square">
