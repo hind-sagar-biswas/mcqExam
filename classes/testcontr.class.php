@@ -1,6 +1,6 @@
 <?php
 
-class TestContr extends Dbh
+class TestContr extends QuestionSetContr
 {
   private $testId;
   private $title;
@@ -98,5 +98,12 @@ class TestContr extends Dbh
     } else {
       return false;
     }
+  }
+
+  public function deleteTest($testId, $deleteQuestions = False)
+  {
+    $setDeleteQuery = "DELETE FROM $this->testsTable WHERE test_id=$testId";
+    if (mysqli_query($this->connect(), $setDeleteQuery)) return True;
+    return False;
   }
 }

@@ -1,6 +1,6 @@
 <?php
 
-class QuestionContr extends Dbh
+class QuestionContr extends QuestionSetContr
 {
   public $img_upload_path = '../assets/images/uploads/';
 
@@ -132,12 +132,29 @@ class QuestionContr extends Dbh
   public function create()
   {
     if ($this->addQues()) {
-      $query = mysqli_query($this->connect(), "SELECT q_id FROM questions ORDER BY q_id DESC LIMIT 1");
+      $query = mysqli_query($this->connect(), "SELECT q_id FROM $this->questionsTable ORDER BY q_id DESC LIMIT 1");
       $getId = mysqli_fetch_assoc($query);
       $id = $getId['q_id'];
-
       return $id;
     }
     return 0;
+  }
+
+  
+  // METHODS FOR DELETIONS
+
+  public function deleteQuestion($questionId)
+  {
+    $optionId = mysqli_fetch_assoc(mysqli_query($this->connect(), "SELECT option_id FROM $this->questionsTable WHERE id=$questionId"));
+
+    $questionDeleteQuery = "DELETE FROM $this->questionsTable WHERE q_id=$questionId";
+    $optionDeleteQuery = "DELETE FROM $this->optionsTable WHERE option_id=$optionId";
+
+    if(mysqli_query($this->connect(), $questionDeleteQuery)) {
+      $this->deleteSetByQuestion($questionId); // deleting all question-test sets for this question
+      if (mysqli_query($this->connect(), $optionDeleteQuery)) return True;  // deleting option set for this question
+      return False;
+    }
+    return False;
   }
 }
