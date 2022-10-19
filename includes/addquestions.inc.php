@@ -8,8 +8,8 @@ require_once __DIR__ . '/../simplexlsx/src/SimpleXLSX.php';
 
 // CLASS IMPORTS
 require '../classes/dbh.class.php';
-require '../classes/questioncontr.class.php';
 require '../classes/questionsetcontr.class.php';
+require '../classes/questioncontr.class.php';
 
 // XL SHEET UPLOAD HANDELING
 if (isset($_POST['add_question_from_xl'])) {
@@ -114,7 +114,8 @@ else if (isset($_POST['add_question']) || isset($_POST['add_question_from_test']
     move_uploaded_file($rImg_upload, $img_folder_path . $rImg);
 
     if (isset($_POST['add_question_from_test'])) {
-      $set = new QuestionSetContr( $testId, $add_question);
+      $set = new QuestionSetContr();
+      $set->setupQuestionSet($testId, $add_question);
       header('Location: ' . $next_path . '?m=Successful&i=' . $testId);
     } else header('Location: ' . $next_path . '?m=Successful&q-id=' . $add_question);
     

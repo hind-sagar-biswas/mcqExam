@@ -54,7 +54,7 @@ class QuestionView extends Dbh
       $ns = '';
 
       if ($question['sub_topic'] != null || !empty($question['sub_topic'])) {
-        $sub = $this->questions['sub_topic'];
+        $sub = $question['sub_topic'];
       } else {
         $sub = '<span class="badge bg-warning">none</span>';
       }
@@ -66,7 +66,7 @@ class QuestionView extends Dbh
       }
       
 
-      switch ($this->questions['answer']) {
+      switch ($question['answer']) {
         case "a":
           $a = 'bg-success text-white';
           break;

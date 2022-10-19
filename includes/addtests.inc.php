@@ -1,5 +1,6 @@
 <?php
-require './classes/dbh.class.php';
+require '../classes/dbh.class.php';
+require '../classes/questionsetcontr.class.php';
 require '../classes/testcontr.class.php';
  
 $target_path = '../create-test.php';
