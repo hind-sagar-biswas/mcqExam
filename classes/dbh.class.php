@@ -9,6 +9,15 @@ class Dbh
 
   private $port;
 
+  protected $usersTable = 'dummy_users';
+  protected $testsTable = 'tests';
+  protected $subjectsTable = 'subjects';
+  protected $topicsTable = 'topics';
+  protected $optionsTable = 'options';
+  protected $questionsTable = 'questions';
+  protected $testQuestionsTable = 'test_questions';
+
+
   public function setDbInfo($host, $user, $pass, $db)
   {
     $this->host = $host;

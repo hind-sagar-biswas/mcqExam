@@ -2,7 +2,8 @@
 
 class QuestionView extends Dbh
 {
-  private $questions;
+  private $questionList = array();
+
   protected $questionViewQuery =
   "SELECT
     q.class,
@@ -44,23 +45,24 @@ class QuestionView extends Dbh
     $id = 1;
     $sub = '<span class="badge badge-warning>none</span>';
 
-    while ($this->questions =  mysqli_fetch_assoc($query)) {
+    while ($question =  mysqli_fetch_assoc($query)) {
+
       $a = '';
       $b = '';
       $c = '';
       $d = '';
       $ns = '';
 
-      if ($this->questions['sub_topic'] != null || !empty($this->questions['sub_topic'])) {
+      if ($question['sub_topic'] != null || !empty($question['sub_topic'])) {
         $sub = $this->questions['sub_topic'];
       } else {
         $sub = '<span class="badge bg-warning">none</span>';
       }
 
-      if (empty($this->questions['ns']) || $this->questions['ns'] == 'off') {
-        $this->questions['ns'] = '<span class="badge rounded-pill bg-danger">off</span>';
+      if (empty($question['ns']) || $question['ns'] == 'off') {
+        $question['ns'] = '<span class="badge rounded-pill bg-danger">off</span>';
       } else {
-        $this->questions['ns'] = '<span class="badge rounded-pill bg-success">on</span>';
+        $question['ns'] = '<span class="badge rounded-pill bg-success">on</span>';
       }
       
 
@@ -83,22 +85,32 @@ class QuestionView extends Dbh
 
       echo '<tr>';
       echo "<td>" . $id . "</td>
-            <td>" . $this->questions['class'] . "</td>
-            <td>" . $this->questions['subjectName'] . "</td>
-            <td>" . $this->questions['chapter'] . "</td>
-            <td>" . $this->questions['topic'] . "</td>
+            <td>" . $question['class'] . "</td>
+            <td>" . $question['subjectName'] . "</td>
+            <td>" . $question['chapter'] . "</td>
+            <td>" . $question['topic'] . "</td>
             <td>" . $sub . "</td>
-            <td align='center' class='" . $a . "' width='200px'>" . $this->questions['a'] . "</td>
-            <td align='center' class='" . $b . "' width='200px'>" . $this->questions['b'] . "</td>
-            <td align='center' class='" . $c . "' width='200px'>" . $this->questions['c'] . "</td>
-            <td align='center' class='" . $d . "' width='200px'>" . $this->questions['d'] . "</td>
-            <td align='center' class='" . $ns . "'>" . $this->questions['ns'] . "</td>
-            <td>" . $this->questions['ref'] . "</td>
-            <td> <a href='" . $this->questions['ref_link'] . "' target='_blank'>" . $this->questions['ref_link'] . "</a></td>
-            <!--td>" . $this->questions['d'] . "</td-->";
+            <td align='center' class='" . $a . "' width='200px'>" . $question['a'] . "</td>
+            <td align='center' class='" . $b . "' width='200px'>" . $question['b'] . "</td>
+            <td align='center' class='" . $c . "' width='200px'>" . $question['c'] . "</td>
+            <td align='center' class='" . $d . "' width='200px'>" . $question['d'] . "</td>
+            <td align='center' class='" . $ns . "'>" . $question['ns'] . "</td>
+            <td>" . $question['ref'] . "</td>
+            <td> <a href='" . $question['ref_link'] . "' target='_blank'>" . $question['ref_link'] . "</a></td>
+            <!--td>" . $question['d'] . "</td-->";
       echo '</tr>';
       $id++;
     }
+  }
+
+  public function getQuestionsList()
+  {
+    $query = mysqli_query($this->connect(), $this->questionViewQuery . $this->orderQuery);
+
+    while ($question =  mysqli_fetch_assoc($query)) {
+      array_push($this->questionList, $question);
+    }
+    return $this->questionList;
   }
 
   public function getQuestion($questionId)

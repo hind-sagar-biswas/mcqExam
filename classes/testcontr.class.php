@@ -2,6 +2,7 @@
 
 class TestContr extends Dbh
 {
+  private $testId;
   private $title;
   private $description;
   private $testClass;
@@ -16,7 +17,7 @@ class TestContr extends Dbh
   private $questionRandomize;
   private $optionRandomize;
 
-  public function __construct($title, $description, $testClass, $sub, $topic, $uMark, $cMark, $wMark, $notSure, $questionRandomize, $optionRandomize)
+  public function setup($title, $description, $testClass, $sub, $topic, $uMark, $cMark, $wMark, $notSure, $questionRandomize, $optionRandomize)
   {
     $this->title = $title;
     $this->description = $description;
@@ -33,7 +34,7 @@ class TestContr extends Dbh
 
   public function getSubjectId($subjectName)
   {
-    $getquery = "SELECT sub_id FROM subjects WHERE subject_name='$subjectName'";
+    $getquery = "SELECT sub_id FROM $this->subjectsTable WHERE subject_name='$subjectName'";
     $id = mysqli_fetch_assoc(mysqli_query($this->connect(), $getquery));
     if (empty($id['sub_id'])) {
       return $this->addSubject($subjectName);
@@ -44,7 +45,7 @@ class TestContr extends Dbh
 
   public function addSubject($subjectName)
   {
-    $addquery = "INSERT INTO subjects(subject_name) VALUES('$subjectName')";
+    $addquery = "INSERT INTO $this->subjectsTable (subject_name) VALUES('$subjectName')";
     if (mysqli_query($this->connect(), $addquery)) {
       return $this->getSubjectId($this->subj);
     } else {
@@ -54,7 +55,7 @@ class TestContr extends Dbh
 
   private function addTopic($topic)
   {
-    $addquery = "INSERT INTO topics(topic_name,	topic_type) VALUES('$topic', 'main')";
+    $addquery = "INSERT INTO $this->topicsTable (topic_name,	topic_type) VALUES('$topic', 'main')";
     if (mysqli_query($this->connect(), $addquery)) {
       return $this->getTopicId($topic);
     } else {
@@ -64,7 +65,7 @@ class TestContr extends Dbh
 
   private function getTopicId($topic)
   {
-    $getquery = "SELECT id FROM topics WHERE topic_name='$topic' AND topic_type='main'";
+    $getquery = "SELECT id FROM $this->topicsTable WHERE topic_name='$topic' AND topic_type='main'";
     $id = mysqli_fetch_assoc(mysqli_query($this->connect(), $getquery));
     if (empty($id['id'])) {
       return $this->addTopic($topic);
@@ -88,7 +89,7 @@ class TestContr extends Dbh
       $this->topicId = 'NULL';
     }
 
-    $addquery = "INSERT INTO tests(test_title, test_description, test_class, test_subject, test_topic, unattended_mark, correct_mark, wrong_mark, ns_enabled, ques_randomize,	opt_randomize) VALUES('$this->title', '$this->description', '$this->testClass', $this->subId, $this->topicId, '$this->uMark', '$this->cMark', '$this->wMark', '$this->notSure', '$this->questionRandomize', '$this->optionRandomize')";
+    $addquery = "INSERT INTO $this->testsTable (test_title, test_description, test_class, test_subject, test_topic, unattended_mark, correct_mark, wrong_mark, ns_enabled, ques_randomize,	opt_randomize) VALUES('$this->title', '$this->description', '$this->testClass', $this->subId, $this->topicId, '$this->uMark', '$this->cMark', '$this->wMark', '$this->notSure', '$this->questionRandomize', '$this->optionRandomize')";
     if (mysqli_query($this->connect(), $addquery)) {
       $query = mysqli_query($this->connect(), "SELECT test_id FROM tests ORDER BY test_id DESC LIMIT 1");
       $getId = mysqli_fetch_assoc($query);
