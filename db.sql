@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 17, 2022 at 02:47 PM
+-- Generation Time: Oct 20, 2022 at 03:44 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -20,6 +20,19 @@ SET time_zone = "+00:00";
 --
 -- Database: `mcqexam`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dummy_users`
+--
+
+CREATE TABLE `dummy_users` (
+  `user_id` int(11) NOT NULL,
+  `username` varchar(225) NOT NULL,
+  `user_email` varchar(225) NOT NULL,
+  `user_position` int(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -72,7 +85,7 @@ CREATE TABLE `questions` (
 
 CREATE TABLE `subjects` (
   `sub_id` int(11) NOT NULL,
-  `subjectName` varchar(225) NOT NULL,
+  `subject_name` varchar(225) NOT NULL,
   `create_time` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -130,6 +143,14 @@ CREATE TABLE `topics` (
 --
 
 --
+-- Indexes for table `dummy_users`
+--
+ALTER TABLE `dummy_users`
+  ADD PRIMARY KEY (`user_id`),
+  ADD UNIQUE KEY `USERNAME` (`username`),
+  ADD UNIQUE KEY `EMAIL` (`user_email`);
+
+--
 -- Indexes for table `options`
 --
 ALTER TABLE `options`
@@ -146,7 +167,7 @@ ALTER TABLE `questions`
 --
 ALTER TABLE `subjects`
   ADD PRIMARY KEY (`sub_id`),
-  ADD UNIQUE KEY `SUB_NAME` (`subjectName`);
+  ADD UNIQUE KEY `SUB_NAME` (`subject_name`);
 
 --
 -- Indexes for table `tests`
@@ -169,6 +190,12 @@ ALTER TABLE `topics`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `dummy_users`
+--
+ALTER TABLE `dummy_users`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `options`

@@ -13,6 +13,8 @@ class TestView extends QuestionView
      public $testClass;
      private $subId;
      private $topicId;
+     public $subjectName;
+     public $topic;
      public $uMark;
      public $cMark;
      public $wMark;
@@ -25,7 +27,7 @@ class TestView extends QuestionView
           $this->getAllQuery = "SELECT * FROM $this->testsTable";
           $this->id = $id;
           if ($id != 0) {
-               $this->getTest($this->id);
+               $this->getTest();
           }
      }
 
@@ -45,7 +47,7 @@ class TestView extends QuestionView
           return $topic['topic_name'];
      }
 
-     public function getTest()
+     private function getTest()
      {
           if ($this->id != 0) {
                $getquery = "SELECT * FROM $this->testsTable WHERE test_id=$this->id";

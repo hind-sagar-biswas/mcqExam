@@ -21,12 +21,9 @@ if (isset($_POST['add_test'])) {
      $or = (isset($_POST['question-randomize'])) ? $_POST['question-randomize'] : 'off' ;
 
      $test = new TestContr();
-     $test->setup($title, $description, $testClass, $sub, $topic, $uMark, $cMark, $wMark, $ns, $qr, $or);
+     $test->testSetup($title, $description, $testClass, $sub, $topic, $uMark, $cMark, $wMark, $ns, $qr, $or);
 
      $id = $test->addTest();
      if ($id) header('Location: ' . $target_path . '?i=' . $id);
-     else header('Location: ' . $back_path . '?m=Something went wrong');
-
-     // if ($id) echo 'Location: ' . $target_path . '?i=' . $id;
-     // else echo 'Location: ' . $back_path . '?m=Something went wrong';
+     else header('Location: ' . $back_path . '?m=Something went wrong');   
 }

@@ -15,6 +15,10 @@ if (isset($_GET['i'])) {
      <div class="p-3">
           <h3><?php echo $testObject->title; ?></h3>
           <p><?php echo $testObject->description; ?></p>
+          <p>
+               <a href="#">[Edit]</a>
+               <a href="./includes/deletes.inc.php?del=test&i=<?php echo $testObject->id; ?>" class="text-danger">[Delete]</a>
+          </p> 
           <ul class="listgroup">
                <li class="list-group-item">
                     <strong>Class :</strong>

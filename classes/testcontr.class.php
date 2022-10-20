@@ -17,7 +17,7 @@ class TestContr extends QuestionSetContr
   private $questionRandomize;
   private $optionRandomize;
 
-  public function setup($title, $description, $testClass, $sub, $topic, $uMark, $cMark, $wMark, $notSure, $questionRandomize, $optionRandomize)
+  public function testSetup($title, $description, $testClass, $sub, $topic, $uMark, $cMark, $wMark, $notSure, $questionRandomize, $optionRandomize)
   {
     $this->title = $title;
     $this->description = $description;
@@ -36,6 +36,7 @@ class TestContr extends QuestionSetContr
   {
     $getquery = "SELECT sub_id FROM $this->subjectsTable WHERE subject_name='$subjectName'";
     $id = mysqli_fetch_assoc(mysqli_query($this->connect(), $getquery));
+    // echo $id['sub_id'];
     if (empty($id['sub_id'])) {
       return $this->addSubject($subjectName);
     } else {
@@ -47,7 +48,7 @@ class TestContr extends QuestionSetContr
   {
     $addquery = "INSERT INTO $this->subjectsTable (subject_name) VALUES('$subjectName')";
     if (mysqli_query($this->connect(), $addquery)) {
-      return $this->getSubjectId($this->subj);
+      return $this->getSubjectId($this->sub);
     } else {
       return 0;
     }
@@ -103,7 +104,10 @@ class TestContr extends QuestionSetContr
   public function deleteTest($testId, $deleteQuestions = False)
   {
     $setDeleteQuery = "DELETE FROM $this->testsTable WHERE test_id=$testId";
-    if (mysqli_query($this->connect(), $setDeleteQuery)) return True;
+    if (mysqli_query($this->connect(), $setDeleteQuery)) {
+      $this->deleteSetByTest($testId);
+      return True;
+    }
     return False;
   }
 }

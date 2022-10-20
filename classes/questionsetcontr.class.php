@@ -5,7 +5,7 @@ class QuestionSetContr extends Dbh
     private $questionId;
     private $testId;
 
-    public function setupQuestionSet($testId, $questionId = 0, $constructType = 'new')
+    public function questionSetSetup($testId, $questionId = 0, $constructType = 'new')
     {
         $this->questionId = $questionId;
         $this->testId = $testId;

@@ -140,6 +140,33 @@ class QuestionContr extends QuestionSetContr
     return 0;
   }
 
+  public function addFromXL($questionList, $addFromTest = False, $testInfo = array(0, '', '', '')) // $testInfo = (testId, class, subject, not-sure)
+  {
+    $rowCount = 0;
+    foreach ($questionList as $question) {
+      if ($rowCount > 1) {
+        if ($addFromTest) {
+          $testId = intval($testInfo[0]);
+
+          $question[1] = (!empty($testInfo[1])) ? $testInfo[1] : $question[1];
+          $question[2] = (!empty($testInfo[2])) ? $testInfo[2] : $question[2];
+          $question[12] = (!empty($testInfo[3])) ? $testInfo[3] : $question[12];
+        }
+        $rowCount += 1;
+
+        $this->questionSetup($question[1], $question[2], $question[3], $question[4], $question[5], '', $question[6], $question[7], $question[8], '', $question[9], '', $question[10], '', $question[11], '', $question[12], '', $question[13], $question[14]);
+        // ($cl, $sub, $cha, $top, $sTop, $img, $q, $a, $o1, $o1_i, $o2, $o2_i, $o3, $o3_i, $o4, $o4_i, $oNs, $rImg, $ref, $refLink);
+        $add_question = $this->create();
+
+        if ($addFromTest) {
+          $this->questionSetSetup($add_question, $testId);
+        }
+
+        return $add_question;
+      }
+    }
+  }
+
   
   // METHODS FOR DELETIONS
 
