@@ -12,6 +12,8 @@ MCQ Exam management system using PHP OOP.
 2. `classes\` : all php classes
 3. `includes\` : files that runs operations
 4. `simplexlsx\` : SimpleXLSX package for `.xlsx` file upload by [Shuchkin](https://github.com/shuchkin/simplexls)
+5. `templates\` : page templates
+   * `forms\` : form templates
 
 ## Classes
 
@@ -35,3 +37,18 @@ file naming: `{class_name}.class.php`
 * `testview.class.php`
 * `topiccontr.class.php`
   
+### Class dependencies
+
+```php
+class Dbh {} // stand alone class
+
+// CONTR CLASSES
+class QuestionSetContr extends Dbh {}
+class QuestionContr extends QuestionSetContr {}
+class TestContr extends QuestionSetContr {}
+
+// VIEW MODEL CLASSES
+class QuestionView extends Dbh {}
+class TestView extends QuestionView {}
+```
+
